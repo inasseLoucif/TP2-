@@ -38,8 +38,8 @@ La configuration du client SSH a ensuite été modifiée pour effectuer un rebon
 Les connexions SSH aux deux instances privées ont été testées et validées, puis Apache HTTPD a été installé ou démarré si nécessaire pour servir une page sur le port 80.
 
 ![Liste des instances et IP](running-instances.jpg)  
-![Security Group des instances privées](security-group.jpg)  
-![Security Group des bastions / Load Balancer](sg.jpg)
+![Détail des instances du VPC2](instances-vpc2.jpg)  
+![Instances et IP vues depuis AWS CLI / CloudShell](instances-and-ip.jpg)
 
 ## Partie 3 – Peering, routage inter‑VPC et tests
 Un lien de peering VPC a été créé entre `ILF_VPC1` et `ILF_VPC2`, puis accepté dans la console.  
@@ -53,6 +53,7 @@ Les Security Groups des instances privées ont ensuite été ajustés pour autor
 Les tests ont été réalisés en se connectant en SSH sur `ILF_InstanceVPC1` via `ILF_BastionVPC1`, puis en lançant des requêtes HTTP (par exemple avec `curl`) vers l’adresse privée de `ILF_InstanceVPC2`.  
 Le même test a été effectué dans l’autre sens depuis `ILF_InstanceVPC2`, confirmant que les serveurs Apache des deux VPC pouvaient communiquer en HTTP grâce au peering et au routage configuré.
 
-![Peering VPC1–VPC2 actif](peering-console.jpg)  
-![Routes VPC1 avec peering](routes-et-peering.jpg)  
-![Routes table VPC2](routes-table-vpc2.jpg)  
+![Peering VPC1–VPC2 actif (console)](peering-console.jpg) 
+![Peering CLI](curl-http.jpg)
+![Routes privées vers le peering dans VPC1](routes-et-peering.jpg)  
+![Route table du VPC2](routes-table-vpc2.jpg)
