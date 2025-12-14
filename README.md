@@ -20,14 +20,9 @@ Les tables de routage ont été ajustées pour que :
 - Les sous-réseaux publics routent vers l’Internet Gateway pour le trafic sortant.  
 - Les sous-réseaux privés routent vers la NAT Gateway pour les destinations hors du VPC.
 
-![VPC1](vpc1-peering.jpg)
-
-![VPC1  ILF VPC1](vpc1.jpg)
-![VPC2 – ILF_VPC2 (10.111.0.0/16)](vpc2.jpg)
+![VPC1 – ILF_VPC1](vpc1.jpg)  
+![VPC2 – ILF_VPC2](vpc2.jpg)  
 ![Subnets publics/privés et NAT](vpc-and-subnet.jpg)
-
-![Création VPC et subnets](instances-and-ip.jpg)
-![Routes et peering VPC2](routes-and-peering.jpg)
 
 ## Partie 2 – Instances EC2 et bastions
 Dans `ILF_VPC1`, une instance privée `ILF_InstanceVPC1` a été créée dans le subnet `10.11.2.0/24`, et dans `ILF_VPC2`, une instance privée `ILF_InstanceVPC2` a été créée dans le subnet `10.111.2.0/24`.  
@@ -42,7 +37,9 @@ Les Security Groups ont été configurés pour :
 La configuration du client SSH a ensuite été modifiée pour effectuer un rebond via les bastions (ProxyJump / ProxyCommand) afin de se connecter aux instances privées sans exposer celles‑ci directement.  
 Les connexions SSH aux deux instances privées ont été testées et validées, puis Apache HTTPD a été installé ou démarré si nécessaire pour servir une page sur le port 80.
 
-![Liste des instances et IP](instances-and-ip.jpg)
+![Liste des instances et IP](running-instances.jpg)  
+![Security Group des instances privées](security-group.jpg)  
+![Security Group des bastions / Load Balancer](sg.jpg)
 
 ## Partie 3 – Peering, routage inter‑VPC et tests
 Un lien de peering VPC a été créé entre `ILF_VPC1` et `ILF_VPC2`, puis accepté dans la console.  
@@ -56,7 +53,6 @@ Les Security Groups des instances privées ont ensuite été ajustés pour autor
 Les tests ont été réalisés en se connectant en SSH sur `ILF_InstanceVPC1` via `ILF_BastionVPC1`, puis en lançant des requêtes HTTP (par exemple avec `curl`) vers l’adresse privée de `ILF_InstanceVPC2`.  
 Le même test a été effectué dans l’autre sens depuis `ILF_InstanceVPC2`, confirmant que les serveurs Apache des deux VPC pouvaient communiquer en HTTP grâce au peering et au routage configuré.
 
-![Routes VPC1 avec peering](vpc&-peering.jpg)
-![Describe route tables VPC2](routes-tables-vpc2.jpg)
-![Describe instances VPC2](instances-vpc2.jpg)
-![Test curl HTTP / peering OK](curl-http.jpg)
+![Peering VPC1–VPC2 actif](peering-console.jpg)  
+![Routes VPC1 avec peering](routes-et-peering.jpg)  
+![Routes table VPC2](routes-table-vpc2.jpg)  
