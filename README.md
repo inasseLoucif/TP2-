@@ -19,7 +19,8 @@ Pour chaque VPC :
 Les tables de routage ont été ajustées pour que :  
 - Les sous-réseaux publics routent vers l’Internet Gateway pour le trafic sortant.  
 - Les sous-réseaux privés routent vers la NAT Gateway pour les destinations hors du VPC.
-![test](vpc1.jpg)
+
+![VPC1](vpc1-peering.jpg)
 
 ![VPC1  ILF VPC1](vpc1.jpg)
 ![VPC2 – ILF_VPC2 (10.111.0.0/16)](vpc2.jpg)
