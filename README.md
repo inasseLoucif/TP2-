@@ -20,7 +20,8 @@ Les tables de routage ont été ajustées pour que :
 - Les sous-réseaux publics routent vers l’Internet Gateway pour le trafic sortant.  
 - Les sous-réseaux privés routent vers la NAT Gateway pour les destinations hors du VPC.
 
-*(Ajoute ici tes captures VPC / subnets / IGW / NAT / routes.)*
+![Création VPC et subnets](Capture-decran-2025-12-14-024024.jpg)
+![Routes et peering VPC2](Capture-decran-2025-12-14-024200.jpg)
 
 ## Partie 2 – Instances EC2 et bastions
 Dans `ILF_VPC1`, une instance privée `ILF_InstanceVPC1` a été créée dans le subnet `10.11.2.0/24`, et dans `ILF_VPC2`, une instance privée `ILF_InstanceVPC2` a été créée dans le subnet `10.111.2.0/24`.  
@@ -35,7 +36,8 @@ Les Security Groups ont été configurés pour :
 La configuration du client SSH a ensuite été modifiée pour effectuer un rebond via les bastions (ProxyJump / ProxyCommand) afin de se connecter aux instances privées sans exposer celles‑ci directement.  
 Les connexions SSH aux deux instances privées ont été testées et validées, puis Apache HTTPD a été installé ou démarré si nécessaire pour servir une page sur le port 80.
 
-*(Ajoute ici tes captures instances / SG / config SSH / tests HTTP locaux.)*
+![Liste des instances et IP](Capture-decran-2025-12-14-024228.jpg)
+![Test SSH / get-caller-identity](Capture-decran-2025-12-14-022120.jpg)
 
 ## Partie 3 – Peering, routage inter‑VPC et tests
 Un lien de peering VPC a été créé entre `ILF_VPC1` et `ILF_VPC2`, puis accepté dans la console.  
@@ -49,8 +51,7 @@ Les Security Groups des instances privées ont ensuite été ajustés pour autor
 Les tests ont été réalisés en se connectant en SSH sur `ILF_InstanceVPC1` via `ILF_BastionVPC1`, puis en lançant des requêtes HTTP (par exemple avec `curl`) vers l’adresse privée de `ILF_InstanceVPC2`.  
 Le même test a été effectué dans l’autre sens depuis `ILF_InstanceVPC2`, confirmant que les serveurs Apache des deux VPC pouvaient communiquer en HTTP grâce au peering et au routage configuré.
 
-*(Ajoute ici tes captures peering / routes privées / SG / résultats des curl.)*
-
-## Nettoyage des ressources
-À la fin du TP, toutes les ressources créées en `sa-east-1` ont été supprimées pour limiter les coûts :  
-les VPC `ILF_VPC1` et `ILF_VPC2`, leurs sous-réseaux publics et privés, les NAT Gateways, les Internet Gateways, la connexion de peering, les tables de routage, ainsi que les quatre instances EC2 et leurs Security Groups.
+![Routes VPC1 avec peering](Capture-decran-2025-12-14-024254.jpg)
+![Describe route tables VPC2](Capture-decran-2025-12-14-024323.jpg)
+![Describe instances VPC2](Capture-decran-2025-12-14-024350.jpg)
+![Test curl HTTP / peering OK](Capture-decran-2025-12-14-024133.jpg)
